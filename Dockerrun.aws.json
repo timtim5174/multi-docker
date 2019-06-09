@@ -1,0 +1,33 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+    {
+        "name": "client",
+        "image": "tsa/multi-client",
+        "host": "client",
+        "essential": false
+    },
+    {
+        "name": "server",
+        "image": "tsa/multi-server",
+        "host": "api",
+        "essential": false
+    },
+    {
+        "name": "worker",
+        "image": "tsa/multi-worker",
+        "host": "worker",
+        "essential": false
+    },
+    {
+        "name": "nginx",
+        "image": "tsa/multi-nginx",
+        "essential": true,
+        "portMappings": [{
+            "hostPort": 80,
+            "containerPort": 80
+        }],
+        "links": ["client", "server"]
+    }
+    ]
+}
